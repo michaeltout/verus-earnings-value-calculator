@@ -1,0 +1,17 @@
+{
+  "name": "coinbase-extractor",
+  "version": "0.0.1",
+  "description": "A simple script to extract your coinbases from your listtransactions json",
+  "main": "index.js",
+  "scripts": {
+    "fetch-prices": "node fetch-prices.js",
+    "calculate": "node calculator.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "^9.0.1",
+    "csv-writer": "^1.5.0",
+    "node-fetch": "^2.6.1"
+  }
+}
