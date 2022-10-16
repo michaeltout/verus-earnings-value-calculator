@@ -7,6 +7,10 @@ bignumber.js@^9.0.1:
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.1.tgz#8d7ba124c882bfd8e43260c67475518d0689e4e5"
   integrity sha512-IdZR9mh6ahOBv/hYGiXyVuyCetmGJhtYkqLBpTStdhEGjegpPlUawydyaF3pbIOFynJTpllEs+NP+CS9jKFLjA==
 
+"coingecko-api@https://github.com/miscavage/CoinGecko-API.git":
+  version "1.0.10"
+  resolved "https://github.com/miscavage/CoinGecko-API.git#9f629f6764d2e73e395d40166b285212cbb41b82"
+
 csv-writer@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/csv-writer/-/csv-writer-1.5.0.tgz#86c669be32cdd55dc2b66d722a3906f562547884"
