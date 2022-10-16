@@ -1,30 +1,32 @@
 const { FROM_DATE, TO_DATE, PRICE_FILE_NAME } = require('./config')
 const fs = require('fs');
-const fetch = require('node-fetch');
 const BigNumber = require('bignumber.js');
+const CoinGecko = require('coingecko-api');
 
-console.log("Fetching prices...")
-fetch(
-  `https://api.coinpaprika.com/v1/coins/vrsc-verus-coin/ohlcv/historical?start=${FROM_DATE}&end=${TO_DATE}`
-)
-  .then((res) => res.json())
-  .then(res => {
-    let priceMap = {}
+const CoinGeckoClient = new CoinGecko();
 
-    res.forEach(ohcv => {
-      priceMap[(BigNumber(Date.parse(ohcv.time_open)).dividedBy(1000)).toString()] = BigNumber(ohcv.high)
-        .plus(BigNumber(ohcv.low))
-        .dividedBy(2)
-        .toString();
-    });
+async function main() {
+  console.log("Fetching prices...")
+  let data = await CoinGeckoClient.coins.fetchMarketChartRange('verus-coin', {
+    from: FROM_DATE,
+    to: TO_DATE,
+  });
+  
+  const prices = data.data.prices 
 
-    fs.writeFile(PRICE_FILE_NAME, JSON.stringify(priceMap), 'utf8', () => {
-      console.log("Done writing price file.")
-    });
-  })
-  .catch((e) => {
-    console.error(e);
-  }); 
+  let priceMap = {}
 
+  console.log(prices)
+
+  prices.forEach(ohcv => {
+    priceMap[(BigNumber(ohcv[0]).dividedBy(1000)).toString()] = BigNumber(ohcv[1]).toString()
+  });
+
+  fs.writeFile(PRICE_FILE_NAME, JSON.stringify(priceMap), 'utf8', () => {
+    console.log("Done writing price file.")
+  });
+}
+
+main()
 
 
