@@ -8,7 +8,7 @@
     "calculate": "node calculator.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "coingecko-api": "https://github.com/miscavage/CoinGecko-API.git",
