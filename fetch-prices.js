@@ -1,24 +1,19 @@
 const { FROM_DATE, TO_DATE, PRICE_FILE_NAME } = require('./config')
 const fs = require('fs');
 const BigNumber = require('bignumber.js');
-const CoinGecko = require('coingecko-api');
-
-const CoinGeckoClient = new CoinGecko();
+const { default: axios } = require('axios');
 
 async function main() {
   console.log("Fetching prices...")
-  let data = await CoinGeckoClient.coins.fetchMarketChartRange('verus-coin', {
-    from: FROM_DATE,
-    to: TO_DATE,
-  });
+  const res = await axios.get(`https://api.coingecko.com/api/v3/coins/verus-coin/market_chart/range?vs_currency=usd&from=${FROM_DATE.toString()}&to=${TO_DATE.toString()}`)
   
-  const prices = data.data.prices 
+  const prices = res.data;
 
   let priceMap = {}
 
   console.log(prices)
 
-  prices.forEach(ohcv => {
+  prices.prices.forEach(ohcv => {
     priceMap[(BigNumber(ohcv[0]).dividedBy(1000)).toString()] = BigNumber(ohcv[1]).toString()
   });
 
